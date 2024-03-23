@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 const contactsSlice = createSlice({
+  // namespace
   name: 'contacts',
   initialState: {
     initialContacts: [
@@ -12,12 +13,12 @@ const contactsSlice = createSlice({
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
   },
-
   reducers: {
     addContact: {
       reducer: (state, action) => {
         state.initialContacts.push(action.payload);
       },
+      // preprocesses the payload before dispatching the action
       prepare: (name, number) => {
         return {
           payload: {
@@ -28,6 +29,7 @@ const contactsSlice = createSlice({
         };
       },
     },
+
     deleteContact: (state, action) => {
       const index = state.initialContacts.findIndex(
         contact => contact.id === action.payload

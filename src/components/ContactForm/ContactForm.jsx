@@ -20,15 +20,12 @@ export const ContactForm = () => {
   };
 
   const handleSubmit = e => {
-    // prevent the form refreshing when submitting
     e.preventDefault();
 
-    // when name and number is empty, it will not submit(return)
     if (name.trim() === '' || number.trim() === '') {
       return;
     }
 
-    // when existing contact set an alert, it will not submit(return)
     const existingContact = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
@@ -37,10 +34,14 @@ export const ContactForm = () => {
       return;
     }
 
+    // When addContact is called with name and number parameters, the prepare function generates an object with a payload property.
+    // This payload object includes an id generated using nanoid(), and name and number properties after trimming any whitespace
+    // We only need to pass the necessary parameters (name, number), and the action creator handles the rest.
     dispatch(addContact(name, number));
 
-    setName();
-    setNumber();
+    // Reset Form Fields upon submitting
+    setName('');
+    setNumber('');
   };
 
   return (
@@ -50,7 +51,7 @@ export const ContactForm = () => {
         <input
           type="text"
           name="name"
-          // add \ before - in [' \-] to make it work (LMS) REGEX
+          // add \ before - in [' \-] to make it work (LMS)
           pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
           required
@@ -64,7 +65,7 @@ export const ContactForm = () => {
         <input
           type="tel"
           name="number"
-          // add \ before - in [\-.\s] to make it work (LMS) REGEX
+          // add \ before - in [\-.\s] to make it work (LMS)
           pattern="\+?\d{1,4}?[\-.\s]?\(?\d{1,3}?\)?[\-.\s]?\d{1,4}[\-.\s]?\d{1,4}[\-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
