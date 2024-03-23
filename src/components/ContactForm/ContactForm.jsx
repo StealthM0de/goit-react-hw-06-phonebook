@@ -34,11 +34,11 @@ export const ContactForm = ({ addContact, contacts }) => {
     }
 
     // Add Contact
-    addContact({
-      id: nanoid(),
-      name: name.trim(),
-      number: number.trim(),
-    });
+    // addContact({
+    //   id: nanoid(),
+    //   name: name.trim(),
+    //   number: number.trim(),
+    // });
 
     // will reset Form Fields upon submitting
 
